@@ -1,0 +1,19 @@
+{
+  "name": "pmg",
+  "version": "1.0.0",
+  "description": "Printable Maze Generator",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --outfile=docs/bundle.js --sourcemap --minify",
+    "watch": "esbuild src/main.ts --bundle --outfile=docs/bundle.js --sourcemap --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["maze", "generator", "pdf"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.27.2",
+    "jspdf": "^3.0.4",
+    "typescript": "5.9"
+  }
+}
