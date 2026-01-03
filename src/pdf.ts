@@ -123,6 +123,18 @@ export function exportToPdf(mazes: Maze[], filename: string = "mazes.pdf"): void
     throw new Error("Could not create canvas context");
   }
 
+  // Calculate maximum canvas dimensions needed across all mazes
+  const renderScale = 2;
+  let maxWidth = 0;
+  let maxHeight = 0;
+  for (const maze of mazes) {
+    const dim = getMazeDimensions(maze, { cellSize: baseCellSize, wallThickness });
+    maxWidth = Math.max(maxWidth, dim.width * renderScale);
+    maxHeight = Math.max(maxHeight, dim.height * renderScale);
+  }
+  canvas.width = maxWidth;
+  canvas.height = maxHeight;
+
   // Render each maze and add to PDF
   for (let i = 0; i < mazes.length; i++) {
     const maze = mazes[i];
@@ -130,11 +142,6 @@ export function exportToPdf(mazes: Maze[], filename: string = "mazes.pdf"): void
     if (!maze || !layout) continue;
 
     const baseDim = getMazeDimensions(maze, { cellSize: baseCellSize, wallThickness });
-
-    // Use higher resolution for PDF quality (scale up by 2x)
-    const renderScale = 2;
-    canvas.width = baseDim.width * renderScale;
-    canvas.height = baseDim.height * renderScale;
 
     // Clear and scale context
     ctx.fillStyle = "#ffffff";

@@ -9,7 +9,8 @@ export interface RenderOptions {
   wallThickness: number;
   wallColor: string;
   backgroundColor: string;
-  starColor: string;
+  startStarColor: string;
+  endStarColor: string;
 }
 
 const DEFAULT_OPTIONS: RenderOptions = {
@@ -17,7 +18,8 @@ const DEFAULT_OPTIONS: RenderOptions = {
   wallThickness: 4,
   wallColor: "#2c3e50",
   backgroundColor: "#ffffff",
-  starColor: "#e74c3c",
+  startStarColor: "#e74c3c",
+  endStarColor: "#27ae60",
 };
 
 /**
@@ -78,7 +80,7 @@ export function renderMaze(
   options: Partial<RenderOptions> = {}
 ): void {
   const opts = { ...DEFAULT_OPTIONS, ...options };
-  const { cellSize, wallThickness, wallColor, backgroundColor, starColor } = opts;
+  const { cellSize, wallThickness, wallColor, backgroundColor, startStarColor, endStarColor } = opts;
 
   const halfWall = wallThickness / 2;
 
@@ -140,10 +142,10 @@ export function renderMaze(
   const starRadius = cellSize * 0.35;
   const startCellX = offsetX + maze.start.col * cellSize + halfWall + cellSize / 2;
   const startCellY = offsetY + maze.start.row * cellSize + halfWall + cellSize / 2;
-  drawStar(ctx, startCellX, startCellY, starRadius, starRadius * 0.4, starColor);
+  drawStar(ctx, startCellX, startCellY, starRadius, starRadius * 0.4, startStarColor);
 
   // Draw end star
   const endCellX = offsetX + maze.end.col * cellSize + halfWall + cellSize / 2;
   const endCellY = offsetY + maze.end.row * cellSize + halfWall + cellSize / 2;
-  drawStar(ctx, endCellX, endCellY, starRadius, starRadius * 0.4, "#27ae60");
+  drawStar(ctx, endCellX, endCellY, starRadius, starRadius * 0.4, endStarColor);
 }
